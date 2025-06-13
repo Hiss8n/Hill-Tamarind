@@ -99,29 +99,6 @@ export const Contact = () => {
 
 
 <div> 
-   <label className='text-lg mb-1 text-white font-Crimson'>Password</label>
-    <div className='flex justify-center items-center  m-2 rounded-xl bg-gray-200 w-full py-1 pl-1'>
-      <LockIcon
-      size={24}
-      />
-        <input
-        type='password'
-      
-    
-    onChange={(e)=>setFormData({
-      ...formData,
-      password:[e.target.value]
-    })
-    }
-    value={formData.password}
-    placeholder='Enter password'
-    className=' w-full rounded-xl bg-gray-200 shadow-sm text-sm m-2 ml-2  px-2 text-Crimson focus:outline-none'
-    
-    />
-    </div>
-    </div>
-
-<div> 
    <label className='text-lg mb-1 text-white font-Crimson'>Message</label>
     <div className='flex justify-center items-center  m-2 rounded-xl bg-gray-200 w-full py-1 pl-1'>
      
