@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import Footer from "../components/footer";
 import { motion } from "framer-motion";
-import { LockIcon, MailCheck, User2 } from "lucide-react";
+import { ArrowBigLeft, LockIcon, MailCheck, User2 } from "lucide-react";
 import { useNavigate, useNavigation } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { Link } from "react-router-dom";
 import Baloon from "../components/Baloons";
 
 export const Contact = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(true);
 
   const navigate = useNavigate();
 
@@ -23,12 +24,11 @@ export const Contact = () => {
     console.log(formData);
 
     setFormData([""]);
+     toast.success("Message sent successfully, Thank you 😀");
 
-    setTimeout(() => {
-      toast.success("Message sent successfully, Thank you 😀");
-      navigate("/");
-    }, 2000);
+    
   };
+
   return (
     <>
       {/*  <div className='flex flex-col mt-5'>
@@ -130,7 +130,7 @@ export const Contact = () => {
                   whileTap={{ scale: 0.98 }}
                   type="submit"
                   disabled={isLoading}
-                  onClick={isSubmitted}
+                  onClick={()=>setIsSubmitted(!isSubmitted)}
                 >
                   {isLoading ? (
                     <Loader className=" animate-spin mx-auto " size={24} />
@@ -143,10 +143,19 @@ export const Contact = () => {
           </motion.div>
         </div>
       ) : (
-        <div className='flex flex-col mt-5'>
+        <div className='flex flex-col mt-40 items-center justify-center bg-slate-60 '>
       <h4 className='text-sm text-green-500 font-semibold'>Your message has been submitted successfully!</h4>
       <strong className='text-blue -text-bold'>We will reach out to you shortly</strong>
-
+      <Link to='/'> 
+       <button className="py-4 mt-4 bg-gradient-to-r from-green-900 to-green-200 font-bold flex items-center border rounded"><ArrowBigLeft className="text-green-600"/>BACK TO HOME PAGE</button>
+       </Link>
+        <Baloon
+            color="bg-gradient-to-br from-blue-500 via-blue-400 to-white-100 shadow-2xl"
+            left="24%"
+            delay={2}
+            top="32%"
+            size="w-[580px] h-[580px]"
+          />
     </div>
       )}
       {/* 
