@@ -23,8 +23,9 @@ export const Contact = () => {
     console.log(formData)
     
      setFormData([""])
-     toast.success('Message sent successfully, Thank you 😀')
+     
     setTimeout(()=>{
+      toast.success('Message sent successfully, Thank you 😀')
       navigate('/')
       
     },2000)
@@ -104,13 +105,15 @@ export const Contact = () => {
      
    
     <textarea 
+    rows={4}
+    
       placeholder='Enter message...'
       onChange={(e)=>setFormData({
         ...formData,
         message:[e.target.value]
       })}
       value={formData.message}
-    className='h-full w-[440px] rounded-xl bg-gray-200 shadow-sm text-sm mb-2 ml-2  px-2 text-Crimson h-[20vh] focus:outline-none'
+    className='h-full w-[440px] rounded-xl bg-gray-200 shadow-sm text-sm mb-2 ml-2 resize-none focus:outline-none   px-2 text-Crimson h-[20vh] focus:outline-none'
       
       >
 
