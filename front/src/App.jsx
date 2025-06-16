@@ -24,16 +24,14 @@ function App() {
     <Baloon color="bg-gradient-to-br from-pink-600 via-pink-300 to-white-100 shadow-xl"left="6%"delay={0}top="-13%"size="w-[440px]h-[440px]"/>
    
    
-    
+    <HomePage/>
 
 <Routes>
   
-
-   <Route path="/" element={<HomePage/>}/>
   <Route path='/about' element={<AboutPage/>}/>
   <Route path='/projects' element={<Projects/>}/>
   <Route path='/contact' element={<Contact/>}/>
-  <Route path='*' element={<NotFound/>}/>
+<Route path='*' element={<NotFound/>}/>
 </Routes>
     </div>
     <Footer/>
