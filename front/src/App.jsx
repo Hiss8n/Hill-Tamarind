@@ -31,8 +31,14 @@ function App() {
   <Route path='/about' element={<AboutPage/>}/>
   <Route path='/projects' element={<Projects/>}/>
   <Route path='/contact' element={<Contact/>}/>
+<<<<<<< HEAD
 <Route path='*' element={<NotFound/>}/>
+=======
+  <Route path='*' element={<NotFound/>}/>
+  
+>>>>>>> 2e16f78ae5e505558d7f48225145ed029f97d455
 </Routes>
+<HomePage/>
     </div>
     <Footer/>
     </>
