@@ -34,7 +34,9 @@ function App() {
   <Route path='/projects' element={<Projects/>}/>
   <Route path='/contact' element={<Contact/>}/>
   <Route path='*' element={<NotFound/>}/>
+  
 </Routes>
+<HomePage/>
     </div>
     <Footer/>
     </>
