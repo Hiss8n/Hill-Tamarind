@@ -18,7 +18,7 @@ export const AboutPage = () => {
       id:2,
       title:'Web site',
       description:'Our web site are responsive, made with pridee and efficient call to action navigations',
-      price:'$ 75'
+      price:'$ 75 per hour'
     },
      {
       id:3,

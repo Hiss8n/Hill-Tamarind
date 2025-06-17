@@ -107,7 +107,7 @@ const HomePage = () => {
         <div className="w-2/5 bg-transparent flex items-center justify-center">
           <Baloon
             color="bg-gradient-to-tl from-cyan-900 via-cyan-500 to-cyan-200 shadow-sm"
-            left="60%"
+            left="30%"
             delay={0}
             top="-12%"
             size="w-[580px] h-[580px]"
