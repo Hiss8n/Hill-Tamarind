@@ -1,6 +1,6 @@
 import React from "react";
 import './index.css'
-import {  Link, Route, Routes } from "react-router-dom";
+import {  HashRouter, Route, Routes } from "react-router-dom";
 import HomePage from "./pages.jsx/HomePage";
 import { AboutPage } from "./pages.jsx/AboutPage";
 import { Projects } from "./pages.jsx/Projects";
@@ -16,15 +16,15 @@ function App() {
   return (
    <>
   <Navbar/>
+  <HashRouter> 
 <Routes>
   
   <Route path='/about' element={<AboutPage/>}/>
   <Route path='/projects' element={<Projects/>}/>
   <Route path='/contact' element={<Contact/>}/>
   <Route path='*' element={<NotFound/>}/>
- 
-  
-</Routes>
+ </Routes>
+ </HashRouter>
   <HomePage/>
   <Footer/>
     </>
