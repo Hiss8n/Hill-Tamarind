@@ -11,9 +11,9 @@ export const Projects = () => {
   const items=[
     {
       id:1,
-      name:'SOLAR SYSTEM',
-      about:'This is a simple lunar rotation on its axis',
-      url:' https://hiss8n.github.io/Animation03/',
+      name:'Tunda Hotel',
+      about:'This is and sample of Hotel website',
+      url:'https://tunda-hotel.vercel.app/',
       image:Pana
     },
         {
@@ -26,8 +26,8 @@ export const Projects = () => {
         {
       id:3,
       name:'LITE INSET',
-      about:'cool light ring margin rimm,spectre',
-      url:'https://hiss8n.github.io/Animation01-volume01/',
+      about:'Vision rise is an NGO website for community development',
+      url:'https://vision-rise.vercel.app/',
       image:school
     },
         {
