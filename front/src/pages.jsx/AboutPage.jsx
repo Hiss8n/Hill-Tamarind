@@ -12,13 +12,13 @@ export const AboutPage = () => {
       id:1,
       title:'WhiteBoard animation',
       description:'We create interactive and informative animation vidoes',
-      price:'$ 15 per hour'
+      
     },
      {
       id:2,
       title:'Web site',
       description:'Our web site are responsive, made with pridee and efficient call to action navigations',
-      price:'$ 75 per hour'
+      
     },
      {
       id:3,
