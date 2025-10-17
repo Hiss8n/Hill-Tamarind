@@ -20,7 +20,7 @@ export const Projects = () => {
       id:2,
       name:'EDUCATION IN NGO SET UP',
       about:'This is my second ever project',
-      url:'https://hiss8n.github.io/backilla/',
+      url:'https://vision-rise.vercel.app/
       image:Graduate
     },
         {
@@ -34,7 +34,7 @@ export const Projects = () => {
       id:4,
       name:'LINKEDIN CLONE',
       about:'Mid level linkedIn UI',
-      url:' https://hiss8n.github.io/LinkedIn-clone/',
+      url:'https://hiss8n.github.io/LinkedIn-clone/',
       image:work
     },
         {
