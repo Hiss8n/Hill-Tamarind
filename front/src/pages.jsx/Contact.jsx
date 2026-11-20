@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft, Mail, Send, User, MessageSquare } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Mail, Send, User, MessageSquare } from "lucide-react";
+
 
 const Contact = () => {
   const [status, setStatus] = useState("idle");

@@ -19,7 +19,7 @@ export const Navbar = ({handleClick}) => {
     <>
       <nav className="fixed left-0 top-0 z-50 w-full border-b border-[var(--wash)] bg-[rgba(11,20,36,0.94)] px-5 py-3 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between">
-          <Link to='/' className="grid h-11 w-11 place-items-center rounded-xl text-lg font-bold text-[#14213D] shadow-sm" style={{ background: 'var(--amber)' }}>
+          <Link to='/' className="grid h-11 w-11 place-items-center rounded-xl text-lg font-bold text-white shadow-sm" style={{ background: 'var(--amber)' }}>
             HT
           </Link>
 
