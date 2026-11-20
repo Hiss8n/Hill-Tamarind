@@ -1,278 +1,147 @@
 import React, { useState } from "react";
-import Footer from "../components/footer";
 import { motion } from "framer-motion";
-import { ArrowBigLeft, LockIcon, MailCheck, User2 } from "lucide-react";
-import { useNavigate, useNavigation } from "react-router-dom";
+import { ArrowLeft, Mail, Send, User } from "lucide-react";
 import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
-import Baloon from "../components/Baloons";
 
 export const Contact = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(true);
-
-  const navigate = useNavigate();
-
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     message: "",
   });
 
-  const handleSumbit = async (e) => {
-    e.preventDefault();
-    console.log(formData);
-
-    setFormData([""]);
-     toast.success("Message sent successfully, Thank you 😀");
-
-    
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (
+      !formData.username.trim() ||
+      !formData.email.trim() ||
+      !formData.message.trim()
+    ) {
+      toast.error("Please complete every field.");
+      return;
+    }
+    toast.success("Message sent successfully. Thank you!");
+    setIsSubmitted(true);
   };
 
   return (
-    <>
-      {/*  <div className='flex flex-col mt-5'>
-      <h4 className='text-sm text-green-500 font-semibold'>Your message has been submitted successfully!</h4>
-      <strong className='text-blue -text-bold'>We will reach out to you shortly</strong>
-
-    </div> */}
-
-      {isSubmitted ? (
-        <div className="w-screen max-h-auto flex items-center justify-center bg-slate-100">
-          <Baloon
-            color="bg-gradient-to-br from-pink-800 via-pink-400 to-white-100 shadow-2xl"
-            left="14%"
-            delay={2}
-            top="-12%"
-            size="w-[480px] h-[480px]"
-          />
-          {!isSubmitted}
-
+    <section className="page-shell">
+      <div className="content-shell">
+        {isSubmitted ? (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="max-w-md w-full bg-blue-600 bg-opacity-80 mt-20 backdrop-filter backdrop-blur-3xl rounded-xl shadow-xl"
+            className="mx-auto max-w-xl rounded-[2rem] border border-[var(--wash)] bg-white px-6 py-16 text-center shadow-xl"
           >
-            <div className="p-6">
-              <h2 className="text-2xl mb-3 text-bold text-center  pink-800 text-slate-700 shadow-2xl">
-                Send Us A Message
+            <div
+              className="mx-auto grid h-16 w-16 place-items-center rounded-full text-2xl text-white"
+              style={{ background: "var(--teal)" }}
+            >
+              ✓
+            </div>
+            <p className="eyebrow mt-6">Message received</p>
+            <h1 className="section-title">Thank you for reaching out.</h1>
+            <p className="mt-4 text-[var(--slate)]">
+              Your message has been submitted successfully.
+            </p>
+            <Link to="/" className="primary-button mt-8">
+              <ArrowLeft size={16} /> Back to home
+            </Link>
+          </motion.div>
+        ) : (
+          <div className="grid gap-8 lg:grid-cols-[.75fr_1.25fr]">
+            <div
+              className="rounded-[2rem] p-8 text-white"
+              style={{ background: "var(--ink)" }}
+            >
+              <p
+                className="mb-3 text-xs font-bold uppercase tracking-[0.2em]"
+                style={{ color: "var(--periwinkle)" }}
+              >
+                Get in touch
+              </p>
+              <h1 className="text-4xl font-bold leading-tight">
+                Let&apos;s create something useful.
+              </h1>
+              <p className="mt-5 text-sm leading-7 text-white/70">
+                Tell me a little about your idea, project, or challenge.
+              </p>
+              <div className="mt-10 border-t border-white/10 pt-6 text-sm text-white/80">
+                <p className="flex items-center gap-3">
+                  <Mail size={16} /> Available for new projects
+                </p>
+              </div>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="rounded-[2rem] border border-[var(--wash)] bg-white p-6 shadow-xl sm:p-8"
+            >
+              <h2 className="text-2xl font-bold text-[var(--ink)]">
+                Send a message
               </h2>
-              <form onSubmit={handleSumbit}>
-                <div>
-                  <label className="text-lg mb-1 text-white font-Crimson">
-                    Name
-                  </label>
-                  <div className="flex justify-center items-center bg-gray-200 w-full  mb-2 rounded-xl pl-1">
-                    <User2 size={24} />
+              <form onSubmit={handleSubmit} className="mt-6 space-y-5">
+                <label className="block text-sm font-bold text-[var(--ink)]">
+                  Name
+                  <div className="mt-2 flex items-center rounded-xl border border-[var(--wash)] bg-[var(--mist)] px-3 focus-within:border-[var(--periwinkle)]">
+                    <User size={18} className="text-[var(--slate)]" />
                     <input
                       type="text"
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          username: [e.target.value],
-                        })
-                      }
                       value={formData.username}
-                      placeholder="full name"
-                      className="py-1 w-full rounded-full bg-gray-200 shadow-sm text-sm m-2 
-    ml-2 px-2 text-Crimson border focus:ring-0 focus:outline-none"
+                      onChange={(event) =>
+                        setFormData({ ...formData, username: event.target.value })
+                      }
+                      placeholder="Full name"
+                      className="w-full bg-transparent px-3 py-3 text-sm outline-none"
                     />
                   </div>
-                </div>
+                </label>
 
-                <div>
-                  <label className="text-lg mb-1 text-white font-Crimson">
-                    Email
-                  </label>
-                  <div className="flex justify-center items-center bg-gray-200  bg-gray-200  mb-2 rounded-xl w-full py-1 pl-1">
-                    <MailCheck size={24} />
+                <label className="block text-sm font-bold text-[var(--ink)]">
+                  Email
+                  <div className="mt-2 flex items-center rounded-xl border border-[var(--wash)] bg-[var(--mist)] px-3 focus-within:border-[var(--periwinkle)]">
+                    <Mail size={18} className="text-[var(--slate)]" />
                     <input
                       type="email"
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          email: [e.target.value],
-                        })
-                      }
                       value={formData.email}
-                      placeholder="email address"
-                      className="w-full rounded-xl bg-gray-200 shadow-sm text-sm m-2 ml-2 px-2  text-Crimson focus:outline-none"
+                      onChange={(event) =>
+                        setFormData({ ...formData, email: event.target.value })
+                      }
+                      placeholder="Email address"
+                      className="w-full bg-transparent px-3 py-3 text-sm outline-none"
                     />
                   </div>
-                </div>
+                </label>
 
-                <div>
-                  <label className="text-lg mb-1 text-white font-Crimson">
-                    Message
-                  </label>
-                  <div className="flex justify-center items-center  m-2 rounded-xl bg-gray-200 w-full py-1 pl-1">
-                    <textarea
-                      rows={4}
-                      placeholder="Enter message..."
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          message: [e.target.value],
-                        })
-                      }
-                      value={formData.message}
-                      className="h-full w-[440px] rounded-xl bg-gray-200 shadow-sm text-sm mb-2 ml-2 resize-none focus:outline-none   px-2 text-Crimson h-[20vh] focus:outline-none"
-                    ></textarea>
-                  </div>
-                </div>
+                <label className="block text-sm font-bold text-[var(--ink)]">
+                  Message
+                  <textarea
+                    rows={5}
+                    value={formData.message}
+                    onChange={(event) =>
+                      setFormData({ ...formData, message: event.target.value })
+                    }
+                    placeholder="Tell me about your project..."
+                    className="mt-2 w-full resize-none rounded-xl border border-[var(--wash)] bg-[var(--mist)] px-4 py-3 text-sm outline-none focus:border-[var(--periwinkle)]"
+                  />
+                </label>
+
                 <motion.button
-                  className="mt-8 w-full py-1 bg-gradient-to-r from-blue-500 to-blue-700 text-white
-    font-bold text-2xl text-white rounded-lg shadow-lg hover:from-gray-600 hover:to-gray-500 
-    focus:outline-none focus:ring-2 focus:ring-pink-400 focus:offset-2
-    focus:ring-offset-gray-500 transition duration-200"
-                  whileHover={{ scale: 1.02 }}
+                  whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.98 }}
                   type="submit"
-                  disabled={isLoading}
-                  onClick={()=>setIsSubmitted(!isSubmitted)}
+                  className="primary-button w-full"
                 >
-                  {isLoading ? (
-                    <Loader className=" animate-spin mx-auto " size={24} />
-                  ) : (
-                    "Send"
-                  )}
+                  Send message <Send size={16} />
                 </motion.button>
               </form>
-            </div>
-          </motion.div>
-        </div>
-      ) : (
-        <div className='flex flex-col mt-40 items-center justify-center bg-slate-60 '>
-      <h4 className='text-sm text-green-500 font-semibold'>Your message has been submitted successfully!</h4>
-      <strong className='text-blue -text-bold'>We will reach out to you shortly</strong>
-      <Link to='/'> 
-       <button className="py-4 mt-4 bg-gradient-to-r from-green-900 to-green-200 font-bold flex items-center border rounded"><ArrowBigLeft className="text-green-600"/>BACK TO HOME PAGE</button>
-       </Link>
-        <Baloon
-            color="bg-gradient-to-br from-blue-500 via-blue-400 to-white-100 shadow-2xl"
-            left="24%"
-            delay={2}
-            top="32%"
-            size="w-[580px] h-[580px]"
-          />
-    </div>
-      )}
-      {/* 
-    <div className='w-screen max-h-auto flex items-center justify-center bg-slate-100'>
-          <Baloon
-            color="bg-gradient-to-br from-pink-800 via-pink-400 to-white-100 shadow-2xl"
-            left="14%"
-            delay={2}
-            top="-12%"
-            size="w-[480px] h-[480px]"
-          />
-          {!isSubmitted  }
-
-      <motion.div
-    initial={{opacity:0,y:20}}
-    animate={{opacity:1,y:0}}
-    transition={{duration:0.5}}
-    className="max-w-md w-full bg-blue-600 bg-opacity-80 mt-20 backdrop-filter backdrop-blur-3xl rounded-xl shadow-xl"
-    
-    >
-<div className="p-6">
-    <h2 className="text-2xl mb-3 text-bold text-center  pink-800 text-slate-700 shadow-2xl">Send Us A Message</h2>
-<form onSubmit={handleSumbit}>
-<div> 
-  <label className='text-lg mb-1 text-white font-Crimson'>Name</label>
-  <div className='flex justify-center items-center bg-gray-200 w-full  mb-2 rounded-xl pl-1'>
-    <User2
-    size={24}
-    />
-    <input
-    type='text'
-    
-    onChange={(e)=>setFormData({
-      ...formData,
-      username:[e.target.value]
-    })}
-    value={formData.username}
-    placeholder='full name'
-    className='py-1 w-full rounded-full bg-gray-200 shadow-sm text-sm m-2 
-    ml-2 px-2 text-Crimson border focus:ring-0 focus:outline-none'
-    
-    />
-
-    </div>
-    </div>
-
-<div>
-   <label className='text-lg mb-1 text-white font-Crimson'>Email</label>
-    <div className='flex justify-center items-center bg-gray-200  bg-gray-200  mb-2 rounded-xl w-full py-1 pl-1'>
-      <MailCheck
-      size={24}/>
-        <input
-        type='email'
-    
-    onChange={(e)=>setFormData({
-      ...formData,
-      email:[e.target.value]
-    })}
-    value={formData.email}
-    placeholder='email address'
-    className='w-full rounded-xl bg-gray-200 shadow-sm text-sm m-2 ml-2 px-2  text-Crimson focus:outline-none'
-    
-    />
-    </div>
-     </div>
-
-
-<div> 
-   <label className='text-lg mb-1 text-white font-Crimson'>Message</label>
-    <div className='flex justify-center items-center  m-2 rounded-xl bg-gray-200 w-full py-1 pl-1'>
-     
-   
-    <textarea 
-    rows={4}
-    
-      placeholder='Enter message...'
-      onChange={(e)=>setFormData({
-        ...formData,
-        message:[e.target.value]
-      })}
-      value={formData.message}
-    className='h-full w-[440px] rounded-xl bg-gray-200 shadow-sm text-sm mb-2 ml-2 resize-none focus:outline-none   px-2 text-Crimson h-[20vh] focus:outline-none'
-      
-      >
-
-    </textarea>
-     </div>
-     </div>
-      
-      
-
-
-
-
-    <motion.button
-    className="mt-8 w-full py-1 bg-gradient-to-r from-blue-500 to-blue-700 text-white
-    font-bold text-2xl text-white rounded-lg shadow-lg hover:from-gray-600 hover:to-gray-500 
-    focus:outline-none focus:ring-2 focus:ring-pink-400 focus:offset-2
-    focus:ring-offset-gray-500 transition duration-200"
-    whileHover={{scale:1.02}}
-    whileTap={{scale:0.98}}
-    type="submit"
-    disabled={isLoading}
-    onClick={isSubmitted}
-    >
-   {isLoading ? <Loader className=" animate-spin mx-auto " size={24}/>:"Send"}
-   
-    </motion.button>
-
-</form>
-</div>
-
-    </motion.div>
-
-   
-    </div>
-     */}
-    </>
+            </motion.div>
+          </div>
+        )}
+      </div>
+    </section>
   );
 };

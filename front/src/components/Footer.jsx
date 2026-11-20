@@ -1,49 +1,37 @@
 import React from 'react'
 
-const Footer = () => {
-  return (
-    <>
-    <div className='flex flex flex-wrap justify-center gap-3 p-3 max-w-7xl justify-between items-center bg-slate-200 max-h-full mx-auto px-12'>
-
-
-        <div>
-            
-            <h4 className='flex max-auto text-blue-600 mb-2 justiyf-center'>Skills</h4>
-            <ul className='mt-2 grid grid-grow gap-2 text-sm text-gray-600  hover:cursor-pointer'>
-                <li>Software Development</li>
-                <li>Animation</li>
-                <li>Video Editing</li>
-            </ul>
-        </div>
-
-         <div>
-            <h4 className='flex max-auto text-blue-600 mb-2 justiyf-center'>Experience</h4>
-            <ul className='mt-2 grid grid-grow gap-2 text-sm text-gray-600   hover:cursor-pointer'>
-                <li>IT Support Assistant - iamtheCODE</li>
-                <li>Teacher- finn Church Aid- Maths & Chemistry O Level</li>
-                <li>Personal projects - Coursera</li>
-                
-                
-            </ul>
-        </div>
-
-         <div>
-            <h4 className='flex max-auto text-blue-600 mb-2 justiyf-center'>Our services</h4>
-            <ul className='mt-2 grid grid-grow gap-2 text-sm text-gray-600  hover:cursor-pointer'>
-                <li>Web development</li>
-                <li>Whiteboard animation</li>
-                <li>IT Support</li>
-                
-            </ul>
-        </div>
-        </div>
-      
-
-      <div className='py-2 bg-slate-200'>
-        <p className='flex justify-center items-center font-sm text-sm'>All rights reserved. &copy;<span>{new Date(Date.now()).getFullYear()}</span></p>
-        </div>
-        </>
-  )
-}
+const Footer = () => (
+  <footer className="border-t border-[var(--wash)] bg-white">
+    <div className="mx-auto grid max-w-6xl gap-8 px-6 py-10 sm:grid-cols-3">
+      <div>
+        <h4 className="mb-3 text-sm font-bold uppercase tracking-widest text-[var(--blue)]">Skills</h4>
+        <ul className="space-y-2 text-sm text-[var(--slate)]">
+          <li>Web &amp; App Development</li>
+          <li>Mobile Applications</li>
+          <li>AI &amp; Automation</li>
+        </ul>
+      </div>
+      <div>
+        <h4 className="mb-3 text-sm font-bold uppercase tracking-widest text-[var(--blue)]">Experience</h4>
+        <ul className="space-y-2 text-sm text-[var(--slate)]">
+          <li>IT Support Assistant — iamtheCODE</li>
+          <li>Maths &amp; Chemistry Tutor — Finn Church Aid</li>
+          <li>Personal Projects — Coursera</li>
+        </ul>
+      </div>
+      <div>
+        <h4 className="mb-3 text-sm font-bold uppercase tracking-widest text-[var(--blue)]">Services</h4>
+        <ul className="space-y-2 text-sm text-[var(--slate)]">
+          <li>Custom Software</li>
+          <li>Workflow Automation</li>
+          <li>Website AI Agents</li>
+        </ul>
+      </div>
+    </div>
+    <div className="border-t border-[var(--wash)] py-4 text-center text-xs text-[var(--slate)]">
+      © {new Date().getFullYear()} Hill Tamarind. All rights reserved.
+    </div>
+  </footer>
+)
 
 export default Footer

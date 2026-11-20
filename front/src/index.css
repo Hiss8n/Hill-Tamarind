@@ -1,4 +1,92 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* @import '@fontsource/poppins'; */
+
+:root {
+  --blue: #305393;
+  --ink: #14213D;
+  --mist: #F5F7FA;
+  --wash: #E8EEF8;
+  --amber: #E8A33D;
+  --teal: #1F7A74;
+  --slate: #5B6B82;
+  --periwinkle: #8FB0E8;
+  font-family: Poppins, Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: var(--mist);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 92% 8%, rgba(143, 176, 232, 0.24), transparent 24rem),
+    var(--mist);
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: var(--periwinkle);
+  color: var(--ink);
+}
+
+@layer components {
+  .page-shell {
+    @apply relative min-h-[calc(100vh-72px)] pt-20 pb-16;
+  }
+
+  .content-shell {
+    @apply relative z-10 mx-auto w-[min(1120px,calc(100%-2rem))];
+  }
+
+  .eyebrow {
+    @apply mb-3 text-xs font-bold uppercase tracking-[0.22em];
+    color: var(--teal);
+  }
+
+  .section-title {
+    @apply text-3xl font-bold leading-tight sm:text-4xl;
+    color: var(--ink);
+  }
+
+  .primary-button {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-bold uppercase tracking-wide text-white transition duration-200;
+    background: var(--blue);
+  }
+
+  .primary-button:hover {
+    background: var(--ink);
+    transform: translateY(-2px);
+  }
+
+  .secondary-button {
+    @apply inline-flex items-center justify-center rounded-full border px-6 py-3 text-sm font-bold transition duration-200;
+    border-color: var(--periwinkle);
+    color: var(--blue);
+  }
+
+  .secondary-button:hover {
+    background: var(--wash);
+  }
+}

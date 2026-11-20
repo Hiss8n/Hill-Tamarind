@@ -1,95 +1,46 @@
 import React from 'react'
-import bout from '../assets/bout.png';
-import {motion} from 'framer-motion'
-import Baloon from '../components/Baloons';
-import { Loader } from 'lucide-react';
-import mockupvid from '../assets/animie.mp4';
-import about from '../assets/bout.png';
+import { motion } from 'framer-motion'
+import { Bot, Monitor, Smartphone, Workflow } from 'lucide-react'
+import about from '../assets/bout.png'
+
 export const AboutPage = () => {
-
-  const services=[
-    {
-      id:1,
-      title:'WhiteBoard animation',
-      description:'We create interactive and informative animation vidoes',
-      
-    },
-     {
-      id:2,
-      title:'Web site',
-      description:'Our web site are responsive, made with pridee and efficient call to action navigations',
-      
-    },
-     {
-      id:3,
-      title:'Systems and E-comerce',
-      description:'Our team create CRM and user friendly E-commerce web applications',
-      price:'from $ 1500- $ 3,000'
-    },
+  const services = [
+    { title: 'Web & app development', description: 'Modern, scalable web applications and software tailored to your users and business goals.', icon: Monitor, tone: 'var(--blue)' },
+    { title: 'Mobile app development', description: 'Responsive, intuitive mobile experiences built for reliable use across devices.', icon: Smartphone, tone: 'var(--amber)' },
+    { title: 'Business automations', description: 'Automated workflows that reduce repetitive work and connect your tools and processes.', icon: Workflow, tone: 'var(--teal)' },
+    { title: 'AI agents', description: 'Intelligent AI agents that integrate into websites to support users and automate tasks.', icon: Bot, tone: 'var(--periwinkle)' },
   ]
+
   return (
-    <motion.div className='max-w-7xl  justify-center w-full mt-12 mb-12 bg-slate-50'>
-      <div> 
-        <img
-        src={about}
-        />
-{/* 
-    <video
-      autoPlay
-      loop
-      muted
-      playsInline
-      controls
-    className="w-full max-w-2xl mx-auto">
-  <source src="../assets/animie.mp4" type="video/mp4" />
-</video>
- */}
-
-     {/*  <video
-      autoplay 
-      loop 
-      muted 
-      playsinline 
-      className="w-full max-w-3xl mx-auto rounded-xl shadow-lg"
-          
-      >
-        <source src={mockupvid} type="video/mp4" />
-
-      </video> */}
-
-      </div>
-
-      <div className=' flex flex-wrap justify-center gap-4 mx-auto items-center flex-start md:justify-center base:flex-col base:items-center '>
-           <Baloon
-            color="bg-gradient-to-br from-violet-700 via-violet-500 to-white-300 shadow-4xl"
-            left="-13%"
-            delay={0}
-            top="-42%"
-            size="w-[480px] h-[480px]"
-          />
-           <Baloon
-            color="bg-gradient-to-br from-green-700 via-green-500 to-white-300 shadow-4xl"
-            left="53%"
-            delay={0}
-            top="72%"
-            size="w-[480px] h-[480px]"
-          />
-       {
-        
-        services && services.length>0 ? services.map((item,index)=><div className='w-[200px] h-[320px]  shadow-xl px-2 justify-center' key={index+1}>
-        
-        <div className='justify-center mt-3'>
-          <h3 className='text-3xl font-Crimson'>{item.title}</h3>
-          <span className='text-sm'>{item.description}</span>
-          <div className='p-4'><span className='font-xl text-green-500'>{item.price}</span></div>
-          
+    <motion.section className="page-shell" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+      <div className="content-shell">
+        <div className="grid items-center gap-10 lg:grid-cols-2">
+          <div>
+            <p className="eyebrow">About the studio</p>
+            <h1 className="section-title">Practical software for smarter business.</h1>
+            <p className="mt-5 max-w-xl leading-7 text-[var(--slate)]">
+              I develop web and mobile applications, build powerful automations, and integrate AI agents into websites to help businesses work faster and serve customers better.
+            </p>
+          </div>
+          <div className="overflow-hidden rounded-[2rem] border border-[var(--wash)] bg-white p-3 shadow-xl">
+            <img src={about} alt="About Hill Tamarind" className="max-h-[420px] w-full object-cover rounded-[1.5rem]" />
+          </div>
         </div>
 
-        </div>) :<h3> <Loader className='animate-spin' size={24} color='blue'/></h3>
-       }
-
-      
+        <div className="mt-16">
+          <p className="eyebrow">What I offer</p>
+          <h2 className="section-title">Software solutions built around your goals</h2>
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {services.map(({ title, description, icon: Icon, tone }) => (
+              <article key={title} className="rounded-2xl border border-[var(--wash)] bg-white p-7 transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+                <div className="grid h-12 w-12 place-items-center rounded-xl text-white" style={{ background: tone }}><Icon size={23} /></div>
+                <h3 className="mt-5 text-xl font-bold text-[var(--ink)]">{title}</h3>
+                <p className="mt-3 text-sm leading-6 text-[var(--slate)]">{description}</p>
+              </article>
+            ))}
+          </div>
+        </div>
       </div>
-    </motion.div>
+    </motion.section>
   )
 }

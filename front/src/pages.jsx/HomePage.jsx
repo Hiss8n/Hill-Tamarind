@@ -1,159 +1,156 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import Baloon from "../components/Baloons";
-import { Projects } from "./Projects";
-
-import Pana from "../assets/pana.png";
-import Graduate from "../assets/graduation.png";
-import charity from "../assets/charity.png";
-import school from "../assets/school.png";
-import work from "../assets/work.png";
+import { ArrowRight, Bot, Code2, Smartphone, Workflow } from "lucide-react";
 
 const HomePage = () => {
-  const items=[
+  const skills = [
     {
-      id:1,
-      name:'SOLAR SYSTEM',
-      about:'This is a simple lunar rotation on its axis',
-      url:' https://hiss8n.github.io/Animation03/',
-      image:Pana
+      title: "Web development",
+      description: "Fast, responsive websites and modern web applications.",
+      icon: Code2,
     },
-       {
-      id:2,
-      name:'LITE INSET',
-      about:'cool light ring margin rimm,spectre',
-      url:'https://hiss8n.github.io/Animation01-volume01/',
-      image:school
+    {
+      title: "Mobile app development",
+      description: "Intuitive mobile experiences for Android and iOS.",
+      icon: Smartphone,
     },
-        {
-      id:3,
-      name:'EDUCATION',
-      about:'School web site project',
-      url:'https://hiss8n.github.io/backilla/',
-      image:Graduate
+    {
+      title: "Business automation",
+      description: "Reliable workflows that connect tools and remove repetitive tasks.",
+      icon: Workflow,
     },
-     
-        {
-      id:4,
-      name:'LINKEDIN CLONE',
-      about:'Mid level linkedIn UI',
-      url:' https://hiss8n.github.io/LinkedIn-clone/',
-      image:work
+    {
+      title: "AI agents",
+      description: "AI assistants integrated into your website to support users and automate work.",
+      icon: Bot,
     },
-        {
-      id:5,
-      name:'CHARITY WEBSITE',
-      about:'Personal web for NGO',
-      url:" https://hiss8n.github.io/Gyned/",
-      image:charity
-    },
-  ]
+  ];
 
   const [index, setIndex] = useState(0);
-  const skills = ["Web development", "Video editing", "Whiteboard Animation"];
+  const rotatingSkills = [
+    "Web & app development",
+    "Mobile app development",
+    "Workflow automations",
+    "AI agents for websites",
+  ];
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((prevIndex) => (prevIndex + 1) % skills.length);
-    }, 3000); // change every 3 seconds
+    const interval = setInterval(
+      () => setIndex((current) => (current + 1) % rotatingSkills.length),
+      3000
+    );
+    return () => clearInterval(interval);
+  }, [rotatingSkills.length]);
 
-    return () => clearInterval(interval); // cleanup on unmount
-  }, []);
   return (
-    <div>
-      <div className="min-h-screen p-0 w-full h-[100vh] h-screen-full bg-slate-50">
-        {/* LEFT */}
+    <>
+      <section className="relative min-h-[600px] overflow-hidden pt-[18px]">
+        <div
+          className="absolute right-[-8%] top-24 h-[460px] w-[460px] rounded-full opacity-40 blur-3xl"
+          style={{ background: "var(--periwinkle)" }}
+        />
+        <div
+          className="absolute bottom-[-12rem] left-[-10rem] h-[380px] w-[380px] rounded-full opacity-30 blur-3xl"
+          style={{ background: "var(--amber)" }}
+        />
 
-        <div className="w-3/5 bg-transparent-200 items-center grid place-items-center justify-center ">
-          <div className="mt-20">
-            <h3 className=' font-semibold text-slate-900 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl" mt-20 ml-12 uppercase'>
-              Creating software for business
-              <br /> and individuals
-            </h3>
-          </div>
-
-          <h2 className="m-10 sm:text-sm md:text-xl lg:text-xl xl:text-2xl text-blue-400 ml-12 font-Pacific ">
-            Building sleek sites with cinematic flair.
-            <br />
-            <div className="mt-3">
-              <span
-                className=" text-bold sm:text-sm md:text-xl lg:text-3xl xl:text-3xl
-            transition:duration-1000 opacity-100 bg-slate-50
-               text-red-400 shadow-xl"
-              >
-                {skills[index]}
-              </span>
-            </div>
-          </h2>
-          <div className="p-8 ">
-            <Link to="/contact">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-full py-3  px-[12px] cursor-pointer bg-gradient-to-r from-blue-400 to-blue-600 text-white font-semibold rounded-lg
-   shadow-lg hover:from-blue-600 hover:to-blue-400
-   focus:outline-none focus:ring-blue-400 focus:ring-offset-2 focus:offset-gray-600
-   cursor-pointer uppercase
-   sm:text-xl md:text-xl lg:text-xl xl:text-xl
-   "
-              >
-                Contuct Us
-              </motion.button>
-            </Link>
-          </div>
-        </div>
-
-        <div className="w-2/5 bg-transparent flex items-center justify-center">
-          <Baloon
-            color="bg-gradient-to-tl from-cyan-900 via-cyan-500 to-cyan-200 shadow-sm"
-            left="30%"
-            delay={0}
-            top="-12%"
-            size="w-[580px] h-[580px]"
-          />
-        </div>
-      </div>
-
-      <div>
-        <div className="pt-20 max-w-6xl mx-auto  max-h-[250px] flex justify-center mt-6 bg-slate-50">
-          <h2
-            className=" mb-4 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-2xl font-bold 
-       text-blue-700 uppercase max-auto"
+        <div className="content-shell grid min-h-[520px] items-center gap-8 py-8 lg:grid-cols-[1.08fr_.92fr]">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
           >
-            Projects
-          </h2>
-        </div>
-        <div className="flex flex-wrap justify-center gap-4 p-4 flex-flow overflow-x-auto">
-          {items.map((item) => (
-            <div
-              key={item.id}
-              className="bg-white rounded-lg shadow-md overflow-hidden w-[180px] h-[280px]"
-            >
-              <a href={item.url}>
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="w-full h-48 object-cover hover:opacity-90 transition"
-                />
-              </a>
-              <div className="p-4">
-                <h3 className="text-lg font-semibold">{item.name}</h3>
-                <p className="text-gray-600 text-sm trancate mb-2">{item.about}</p>
-              </div>
+            <p className="eyebrow">Software development studio</p>
+            <h1 className="max-w-3xl text-[18px] leading-[1.35] font-bold text-[var(--ink)] sm:text-[18px] lg:text-[18px]">
+              Building{" "}
+              <span className="text-[var(--blue)]">apps, websites</span> and smart
+              automations.
+            </h1>
+            <p className="mt-6 max-w-xl text-[20px] leading-8 text-[var(--slate)]">
+              I develop web and mobile applications, build workflow automations, and
+              create AI agents that integrate directly into your website.
+            </p>
 
-              <Baloon
-                color="bg-gradient-to-br from-indigo-500 via-indigo-200 to-white-300 shadow-4xl"
-                left="-45%"
-                delay={10}
-                top="50%"
-                size="w-[480px] h-[480px]"
-              />
+            <div className="mt-5 h-8 text-lg font-semibold text-[var(--teal)]">
+              {rotatingSkills[index]}<span className="ml-1 animate-pulse">|</span>
             </div>
-          ))}
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link to="/contact" className="primary-button">
+                Start a project{" "}
+                <ArrowRight size={17} />
+              </Link>
+              <Link to="/projects" className="secondary-button">
+                View my work
+              </Link>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.12 }}
+            className="relative hidden min-h-[470px] lg:block"
+          >
+            <div
+              className="absolute inset-10 rotate-3 rounded-[2.5rem]"
+              style={{ background: "var(--wash)" }}
+            />
+           {/*  <div className="absolute inset-x-20 bottom-10 top-20 rounded-[2rem] border border-white/70 bg-white/70 p-8 shadow-2xl backdrop-blur-md">
+               <div className="grid h-full place-items-center text-center">
+                <div>
+                   <div
+                    className="mx-auto grid h-20 w-20 place-items-center rounded-2xl text-white shadow-lg"
+                    style={{ background: "var(--blue)" }}
+                  >
+                     <Code2 size={38} /> 
+                  </div>  
+                  <p className="mt-6 text-sm font-bold uppercase tracking-[0.18em] text-[var(--teal)]">
+                    Ideas into intelligent products
+                  </p>
+                  <p className="mt-3 max-w-xs text-sm leading-6 text-[var(--slate)]">
+                    Purposeful web and mobile apps, automated workflows, and AI agents designed around real business needs.
+                  </p>
+                </div>
+              </div> 
+            </div> */}
+            <div
+              className="absolute right-4 top-16 h-20 w-20 rounded-2xl"
+              style={{ background: "var(--amber)" }}
+            />
+          </motion.div>
         </div>
-      </div>
-    </div>
+      </section>
+
+      <section className="bg-white py-20">
+        <div className="content-shell">
+          <div className="mb-8">
+            <p className="eyebrow">My expertise</p>
+            <h2 className="section-title">Skills</h2>
+          </div>
+
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {skills.map(({ title, description, icon: Icon }) => (
+              <article key={title} className="rounded-2xl border border-[var(--wash)] bg-[var(--mist)] p-6 transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+                <div className="grid h-12 w-12 place-items-center rounded-xl text-white" style={{ background: "var(--blue)" }}>
+                  <Icon size={23} />
+                </div>
+                <h3 className="mt-5 text-lg font-bold text-[var(--ink)]">{title}</h3>
+                <p className="mt-2 text-sm leading-6 text-[var(--slate)]">{description}</p>
+              </article>
+            ))}
+          </div>
+
+          <div className="mt-6 rounded-2xl border border-[var(--wash)] p-7 text-center" style={{ background: "var(--wash)" }}>
+            <p className="text-sm font-bold uppercase tracking-[0.18em] text-[var(--teal)]">Ideas into intelligent products</p>
+            <p className="mx-auto mt-3 max-w-2xl text-[20px] leading-8 text-[var(--ink)]">
+              From a first idea to a connected digital product, I build practical software that saves time and creates better experiences.
+            </p>
+          </div>
+        </div>
+      </section>
+    </>
   );
 };
 

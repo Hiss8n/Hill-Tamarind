@@ -1,69 +1,57 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { AiFillHome } from "react-icons/ai";
-import { FcAbout } from "react-icons/fc";
-import { GoProjectSymlink } from "react-icons/go";
-import Sidebar from './Sidebar';
+import { Link, NavLink } from 'react-router-dom'
+import { AiFillHome } from "react-icons/ai"
+import { FcAbout } from "react-icons/fc"
+import { GoProjectSymlink } from "react-icons/go"
+import { Mail } from 'lucide-react'
+import Sidebar from './Sidebar'
+
 export const Navbar = ({handleClick}) => {
+  const [showSideBar, setShowSideBar] = useState(false)
 
-  const [showSideBar,setShowSideBar]=useState(false)
+  const links = [
+    { to: '/', label: 'Home', icon: <AiFillHome size={16} /> },
+    { to: '/about', label: 'About', icon: <FcAbout size={17} /> },
+    { to: '/projects', label: 'Projects', icon: <GoProjectSymlink size={17} /> },
+  ]
+
   return (
-  <><nav className=" fixed z-50 left-0 top-0 bg-white shadow-md px-10 py-4 mx-auto w-full">
-  <div className="max-w-7xl mx-auto flex items-center justify-between ">
-    {/* <!-- Logo --> */}
-    <div className="text-2xl font-bold text-blue-600 ml-1 ">
-      <Link to='/' className='border-[3px] font-sans-serif border-blue-500 py-1 px-3  text-lg'>HT</Link>
-    </div>
+    <>
+      <nav className="fixed left-0 top-0 z-50 w-full border-b border-[var(--wash)] bg-[rgba(245,247,250,0.92)] px-5 py-3 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-6xl items-center justify-between">
+          <Link to='/' className="grid h-11 w-11 place-items-center rounded-xl text-lg font-bold text-white shadow-sm" style={{ background: 'var(--blue)' }}>
+            HT
+          </Link>
 
-   {/*  */} {/* <!-- Nav Links --> */}
-    <div className="space-x-6 hidden md:flex ">
-        <div className=' relative inline-block group'>
-
-        <Link to='/' className="text-poppins text-xs font-medium transition 
-        flex justify-center items-center gap-2 focus:undeline
-        
-        ">
-        <AiFillHome
-        size={18}
-       />
-        Home
-        </Link>
-        </div>
-
-
-        <Link to='/about' className="text-poppins text-xs font-medium transition 
-               flex justify-center items-center gap-2 focus:undeline
-
-        " >
-        <FcAbout
-        style={{fill:'#000',color:"#000"}}
-        size={18}/>
-         About
-        </Link>
-        <Link to='projects'  className="text-poppins text-xs font-medium transition  flex justify-center gap-2 focus:undeliner-[12]">
-        <GoProjectSymlink
-        size={18}/>
-        Projects</Link>
-    
+          <div className="hidden items-center gap-1 md:flex">
+            {links.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                className={({ isActive }) => `flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition ${isActive ? 'bg-[var(--wash)] text-[var(--blue)]' : 'text-[var(--slate)] hover:bg-white hover:text-[var(--ink)]'}`}
+              >
+                {link.icon}{link.label}
+              </NavLink>
+            ))}
+            <Link to='/contact' className="ml-3 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold text-white transition hover:-translate-y-0.5" style={{ background: 'var(--teal)' }}>
+              <Mail size={16} /> Let&apos;s talk
+            </Link>
           </div>
 
-    {/* <!-- Mobile Menu Button (Optional) --> */}
-    <div className="md:hidden">
-      <button className="text-gray-600 focus:outline-none">
-       {/*  <!-- Icon (3 lines) --> */}
-        <svg 
-        onClick={()=>setShowSideBar(!showSideBar)} className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
-    </div>
-  </div>
-</nav>
-{
-  showSideBar ? <Sidebar handleClick={handleClick}/> :null
-}
- 
-</>
+          <button
+            type="button"
+            aria-label="Toggle navigation"
+            aria-expanded={showSideBar}
+            onClick={() => setShowSideBar(!showSideBar)}
+            className="grid h-10 w-10 place-items-center rounded-lg border border-[var(--wash)] bg-white text-[var(--ink)] md:hidden"
+          >
+            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </nav>
+      {showSideBar && <Sidebar onNavigate={() => setShowSideBar(false)} />}
+    </>
   )
 }
