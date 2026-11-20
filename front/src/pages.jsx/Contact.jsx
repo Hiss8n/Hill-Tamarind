@@ -1,30 +1,57 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
 import { ArrowLeft, Mail, Send, User } from "lucide-react";
 import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 export const Contact = () => {
+  const formRef = useRef(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     message: "",
   });
+  const [status, setStatus] = useState("idle");
 
-  const handleSubmit = (event) => {
+  async function handleSubmit(event) {
     event.preventDefault();
-    if (
-      !formData.username.trim() ||
-      !formData.email.trim() ||
-      !formData.message.trim()
-    ) {
+
+    if (!formData.username.trim() || !formData.email.trim() || !formData.message.trim()) {
       toast.error("Please complete every field.");
       return;
     }
-    toast.success("Message sent successfully. Thank you!");
-    setIsSubmitted(true);
-  };
+
+    if (!formRef.current) return;
+
+    const honeypot = formRef.current.elements.namedItem("website")?.value;
+    if (honeypot) {
+      setIsSubmitted(true);
+      return;
+    }
+
+    setStatus("sending");
+
+    try {
+      await emailjs.sendForm(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        formRef.current,
+        { publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY }
+      );
+
+      setStatus("sent");
+      setIsSubmitted(true);
+      setFormData({ username: "", email: "", message: "" });
+      formRef.current.reset();
+      toast.success("Message sent successfully. Thank you!");
+    } catch (error) {
+      console.error("EmailJS submission failed:", error);
+      setStatus("error");
+      toast.error("Message could not be sent. Please try again.");
+    }
+  }
 
   return (
     <section className="page-shell">
@@ -80,13 +107,22 @@ export const Contact = () => {
               <h2 className="text-2xl font-bold text-[var(--ink)]">
                 Send a message
               </h2>
-              <form onSubmit={handleSubmit} className="mt-6 space-y-5">
+              <form ref={formRef} onSubmit={handleSubmit} className="mt-6 space-y-5">
+                <input
+                  type="text"
+                  name="website"
+                  tabIndex="-1"
+                  autoComplete="off"
+                  className="hidden"
+                  aria-hidden="true"
+                />
                 <label className="block text-sm font-bold text-[var(--ink)]">
                   Name
                   <div className="mt-2 flex items-center rounded-xl border border-[var(--wash)] bg-[var(--mist)] px-3 focus-within:border-[var(--amber)]">
                     <User size={18} className="text-[var(--slate)]" />
                     <input
                       type="text"
+                      name="username"
                       value={formData.username}
                       onChange={(event) =>
                         setFormData({ ...formData, username: event.target.value })
@@ -103,6 +139,7 @@ export const Contact = () => {
                     <Mail size={18} className="text-[var(--slate)]" />
                     <input
                       type="email"
+                      name="email"
                       value={formData.email}
                       onChange={(event) =>
                         setFormData({ ...formData, email: event.target.value })
@@ -117,6 +154,7 @@ export const Contact = () => {
                   Message
                   <textarea
                     rows={5}
+                    name="message"
                     value={formData.message}
                     onChange={(event) =>
                       setFormData({ ...formData, message: event.target.value })
@@ -130,9 +168,10 @@ export const Contact = () => {
                   whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.98 }}
                   type="submit"
-                  className="primary-button w-full"
+                  disabled={status === "sending"}
+                  className="primary-button w-full disabled:cursor-not-allowed disabled:opacity-70"
                 >
-                  Send message <Send size={16} />
+                  {status === "sending" ? "Sending..." : <>Send message <Send size={16} /></>}
                 </motion.button>
               </form>
             </motion.div>
