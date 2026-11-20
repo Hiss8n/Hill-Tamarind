@@ -6,8 +6,9 @@ import { AboutPage } from "./pages.jsx/AboutPage";
 import { Projects } from "./pages.jsx/Projects";
 import { NotFound } from "./pages.jsx/NotFound";
 import { Navbar } from "./components/Navbar";
+import  Contact  from "./pages.jsx/Contact";
 import Footer from "./components/Footer";
-import { Contact } from "./pages.jsx/Contact";
+
 
 function App() {
   return (

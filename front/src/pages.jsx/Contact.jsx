@@ -1,69 +1,82 @@
-import React, { useRef, useState } from "react";
-import emailjs from "@emailjs/browser";
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft, Mail, Send, User } from "lucide-react";
-import { toast } from "react-hot-toast";
+import { ArrowLeft, Mail, Send, User, MessageSquare } from "lucide-react";
 import { Link } from "react-router-dom";
 
-export const Contact = () => {
-  const formRef = useRef(null);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    message: "",
-  });
+const Contact = () => {
   const [status, setStatus] = useState("idle");
 
   async function handleSubmit(event) {
     event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
 
-    if (!formData.username.trim() || !formData.email.trim() || !formData.message.trim()) {
-      toast.error("Please complete every field.");
-      return;
-    }
-
-    if (!formRef.current) return;
-
-    const honeypot = formRef.current.elements.namedItem("website")?.value;
-    if (honeypot) {
-      setIsSubmitted(true);
+    if (formData.get("botcheck")) {
+      setStatus("sent");
       return;
     }
 
     setStatus("sending");
 
-    try {
-      await emailjs.sendForm(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        formRef.current,
-        { publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY }
-      );
-
-      setStatus("sent");
-      setIsSubmitted(true);
-      setFormData({ username: "", email: "", message: "" });
-      formRef.current.reset();
-      toast.success("Message sent successfully. Thank you!");
-    } catch (error) {
-      console.error("EmailJS submission failed:", error);
+    const accessKey = import.meta.env.VITE_WEB3FORMS_KEY;
+    if (!accessKey) {
+      console.error("Missing VITE_WEB3FORMS_KEY. Configure it in front/.env and restart Vite.");
       setStatus("error");
-      toast.error("Message could not be sent. Please try again.");
+      return;
+    }
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          name: formData.get("name"),
+          email: formData.get("email"),
+          message: formData.get("message"),
+          subject: "Porto Folio Contact Forms Requests",
+          from_name: formData.get("email"),
+        }),
+      });
+
+      const responseText = await response.text();
+      let result;
+
+      try {
+        result = JSON.parse(responseText);
+      } catch {
+        console.error("Web3Forms returned invalid JSON:", response.status, responseText);
+        setStatus("error");
+        return;
+      }
+
+      if (response.ok && result.success) {
+        setStatus("sent");
+        form.reset();
+      } else {
+        console.error("Web3Forms error:", result);
+        setStatus("error");
+      }
+    } catch (error) {
+      console.error("Web3Forms request failed:", error);
+      setStatus("error");
     }
   }
 
   return (
     <section className="page-shell">
       <div className="content-shell">
-        {isSubmitted ? (
+        {status === "sent" ? (
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             className="mx-auto max-w-xl rounded-[2rem] border border-[var(--wash)] bg-[var(--wash)] px-6 py-16 text-center shadow-xl"
           >
             <div
-              className="mx-auto grid h-16 w-16 place-items-center rounded-full text-2xl text-white"
+              className="mx-auto grid h-16 w-16 place-items-center rounded-full text-2xl text-[#14213D]"
               style={{ background: "var(--amber)" }}
             >
               ✓
@@ -73,26 +86,30 @@ export const Contact = () => {
             <p className="mt-4 text-[var(--slate)]">
               Your message has been submitted successfully.
             </p>
-            <Link to="/" className="primary-button mt-8">
-              <ArrowLeft size={16} /> Back to home
-            </Link>
+            <button
+              type="button"
+              onClick={() => setStatus("idle")}
+              className="primary-button mt-8"
+            >
+              Send another message <Send size={16} />
+            </button>
           </motion.div>
         ) : (
           <div className="grid gap-8 lg:grid-cols-[.75fr_1.25fr]">
             <div
-              className="rounded-[2rem] p-8 text-[var(--ink)]"
+              className="rounded-[2rem] p-8 text-[#14213D]"
               style={{ background: "var(--amber)" }}
             >
-              <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-[var(--ink)]">
+              <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em]">
                 Get in touch
               </p>
               <h1 className="text-4xl font-bold leading-tight">
                 Let&apos;s create something useful.
               </h1>
-              <p className="mt-5 text-sm leading-7 text-white/70">
+              <p className="mt-5 text-sm leading-7 text-[#14213D]/75">
                 Tell me a little about your idea, project, or challenge.
               </p>
-              <div className="mt-10 border-t border-white/10 pt-6 text-sm text-white/80">
+              <div className="mt-10 border-t border-[#14213D]/15 pt-6 text-sm text-[#14213D]/80">
                 <p className="flex items-center gap-3">
                   <Mail size={16} /> Available for new projects
                 </p>
@@ -107,28 +124,27 @@ export const Contact = () => {
               <h2 className="text-2xl font-bold text-[var(--ink)]">
                 Send a message
               </h2>
-              <form ref={formRef} onSubmit={handleSubmit} className="mt-6 space-y-5">
+
+              <form onSubmit={handleSubmit} className="mt-6 space-y-5">
                 <input
-                  type="text"
-                  name="website"
-                  tabIndex="-1"
+                  type="checkbox"
+                  name="botcheck"
+                  tabIndex={-1}
                   autoComplete="off"
                   className="hidden"
                   aria-hidden="true"
                 />
+
                 <label className="block text-sm font-bold text-[var(--ink)]">
                   Name
                   <div className="mt-2 flex items-center rounded-xl border border-[var(--wash)] bg-[var(--mist)] px-3 focus-within:border-[var(--amber)]">
                     <User size={18} className="text-[var(--slate)]" />
                     <input
                       type="text"
-                      name="username"
-                      value={formData.username}
-                      onChange={(event) =>
-                        setFormData({ ...formData, username: event.target.value })
-                      }
+                      name="name"
+                      required
                       placeholder="Full name"
-                      className="w-full bg-transparent px-3 py-3 text-sm outline-none"
+                      className="w-full bg-transparent px-3 py-3 text-sm text-[var(--ink)] outline-none placeholder:text-[var(--slate)]"
                     />
                   </div>
                 </label>
@@ -140,29 +156,32 @@ export const Contact = () => {
                     <input
                       type="email"
                       name="email"
-                      value={formData.email}
-                      onChange={(event) =>
-                        setFormData({ ...formData, email: event.target.value })
-                      }
+                      required
                       placeholder="Email address"
-                      className="w-full bg-transparent px-3 py-3 text-sm outline-none"
+                      className="w-full bg-transparent px-3 py-3 text-sm text-[var(--ink)] outline-none placeholder:text-[var(--slate)]"
                     />
                   </div>
                 </label>
 
                 <label className="block text-sm font-bold text-[var(--ink)]">
                   Message
-                  <textarea
-                    rows={5}
-                    name="message"
-                    value={formData.message}
-                    onChange={(event) =>
-                      setFormData({ ...formData, message: event.target.value })
-                    }
-                    placeholder="Tell me about your project..."
-                    className="mt-2 w-full resize-none rounded-xl border border-[var(--wash)] bg-[var(--mist)] px-4 py-3 text-sm outline-none focus:border-[var(--amber)]"
-                  />
+                  <div className="mt-2 rounded-xl border border-[var(--wash)] bg-[var(--mist)] px-3 focus-within:border-[var(--amber)]">
+                    <MessageSquare size={18} className="mt-3 text-[var(--slate)]" />
+                    <textarea
+                      name="message"
+                      rows={5}
+                      required
+                      placeholder="Tell me about your project..."
+                      className="w-full resize-none bg-transparent px-1 py-3 text-sm text-[var(--ink)] outline-none placeholder:text-[var(--slate)]"
+                    />
+                  </div>
                 </label>
+
+                {status === "error" && (
+                  <p role="alert" className="text-sm font-semibold text-red-400">
+                    Something went wrong. Please try again.
+                  </p>
+                )}
 
                 <motion.button
                   whileHover={{ y: -2 }}
@@ -181,3 +200,5 @@ export const Contact = () => {
     </section>
   );
 };
+
+export default Contact;
