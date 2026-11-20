@@ -33,11 +33,11 @@ export const Contact = () => {
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mx-auto max-w-xl rounded-[2rem] border border-[var(--wash)] bg-white px-6 py-16 text-center shadow-xl"
+            className="mx-auto max-w-xl rounded-[2rem] border border-[var(--wash)] bg-[var(--wash)] px-6 py-16 text-center shadow-xl"
           >
             <div
               className="mx-auto grid h-16 w-16 place-items-center rounded-full text-2xl text-white"
-              style={{ background: "var(--teal)" }}
+              style={{ background: "var(--amber)" }}
             >
               ✓
             </div>
@@ -53,13 +53,10 @@ export const Contact = () => {
         ) : (
           <div className="grid gap-8 lg:grid-cols-[.75fr_1.25fr]">
             <div
-              className="rounded-[2rem] p-8 text-white"
-              style={{ background: "var(--ink)" }}
+              className="rounded-[2rem] p-8 text-[var(--ink)]"
+              style={{ background: "var(--amber)" }}
             >
-              <p
-                className="mb-3 text-xs font-bold uppercase tracking-[0.2em]"
-                style={{ color: "var(--periwinkle)" }}
-              >
+              <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-[var(--ink)]">
                 Get in touch
               </p>
               <h1 className="text-4xl font-bold leading-tight">
@@ -78,7 +75,7 @@ export const Contact = () => {
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              className="rounded-[2rem] border border-[var(--wash)] bg-white p-6 shadow-xl sm:p-8"
+              className="rounded-[2rem] border border-[var(--wash)] bg-[var(--wash)] p-6 shadow-xl sm:p-8"
             >
               <h2 className="text-2xl font-bold text-[var(--ink)]">
                 Send a message
@@ -86,7 +83,7 @@ export const Contact = () => {
               <form onSubmit={handleSubmit} className="mt-6 space-y-5">
                 <label className="block text-sm font-bold text-[var(--ink)]">
                   Name
-                  <div className="mt-2 flex items-center rounded-xl border border-[var(--wash)] bg-[var(--mist)] px-3 focus-within:border-[var(--periwinkle)]">
+                  <div className="mt-2 flex items-center rounded-xl border border-[var(--wash)] bg-[var(--mist)] px-3 focus-within:border-[var(--amber)]">
                     <User size={18} className="text-[var(--slate)]" />
                     <input
                       type="text"
@@ -102,7 +99,7 @@ export const Contact = () => {
 
                 <label className="block text-sm font-bold text-[var(--ink)]">
                   Email
-                  <div className="mt-2 flex items-center rounded-xl border border-[var(--wash)] bg-[var(--mist)] px-3 focus-within:border-[var(--periwinkle)]">
+                  <div className="mt-2 flex items-center rounded-xl border border-[var(--wash)] bg-[var(--mist)] px-3 focus-within:border-[var(--amber)]">
                     <Mail size={18} className="text-[var(--slate)]" />
                     <input
                       type="email"
@@ -125,7 +122,7 @@ export const Contact = () => {
                       setFormData({ ...formData, message: event.target.value })
                     }
                     placeholder="Tell me about your project..."
-                    className="mt-2 w-full resize-none rounded-xl border border-[var(--wash)] bg-[var(--mist)] px-4 py-3 text-sm outline-none focus:border-[var(--periwinkle)]"
+                    className="mt-2 w-full resize-none rounded-xl border border-[var(--wash)] bg-[var(--mist)] px-4 py-3 text-sm outline-none focus:border-[var(--amber)]"
                   />
                 </label>
 

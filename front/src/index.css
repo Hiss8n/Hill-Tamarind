@@ -4,12 +4,12 @@
 
 :root {
   --blue: #305393;
-  --ink: #14213D;
-  --mist: #F5F7FA;
-  --wash: #E8EEF8;
+  --ink: #F5F7FA;
+  --mist: #0B1424;
+  --wash: #17243A;
   --amber: #E8A33D;
   --teal: #1F7A74;
-  --slate: #5B6B82;
+  --slate: #BAC5D6;
   --periwinkle: #8FB0E8;
   font-family: Poppins, Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--ink);
@@ -31,8 +31,10 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background:
-    radial-gradient(circle at 92% 8%, rgba(143, 176, 232, 0.24), transparent 24rem),
+    radial-gradient(circle at 88% 8%, rgba(232, 163, 61, 0.10), transparent 24rem),
+    radial-gradient(circle at 8% 60%, rgba(48, 83, 147, 0.16), transparent 30rem),
     var(--mist);
+  color: var(--ink);
 }
 
 button,
@@ -47,7 +49,7 @@ a {
 }
 
 ::selection {
-  background: var(--periwinkle);
+  background: var(--amber);
   color: var(--ink);
 }
 
@@ -62,7 +64,7 @@ a {
 
   .eyebrow {
     @apply mb-3 text-xs font-bold uppercase tracking-[0.22em];
-    color: var(--teal);
+    color: var(--amber);
   }
 
   .section-title {
@@ -71,22 +73,25 @@ a {
   }
 
   .primary-button {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-bold uppercase tracking-wide text-white transition duration-200;
-    background: var(--blue);
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-bold uppercase tracking-wide transition duration-200;
+    background: var(--amber);
+    color: #14213D;
   }
 
   .primary-button:hover {
-    background: var(--ink);
+    background: #F0B85F;
+    color: #14213D;
     transform: translateY(-2px);
   }
 
   .secondary-button {
     @apply inline-flex items-center justify-center rounded-full border px-6 py-3 text-sm font-bold transition duration-200;
-    border-color: var(--periwinkle);
-    color: var(--blue);
+    border-color: var(--amber);
+    color: var(--amber);
   }
 
   .secondary-button:hover {
-    background: var(--wash);
+    background: var(--amber);
+    color: #14213D;
   }
 }

@@ -25,13 +25,13 @@ export const Projects = () => {
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((item) => (
-            <a key={item.id} href={item.url} target="_blank" rel="noreferrer" className="group overflow-hidden rounded-2xl border border-[var(--wash)] bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+            <a key={item.id} href={item.url} target="_blank" rel="noreferrer" className="group overflow-hidden rounded-2xl border border-[var(--wash)] bg-[var(--wash)] shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl">
               <div className="h-56 overflow-hidden bg-[var(--wash)]">
                 <img src={item.image} alt={item.name} className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
               </div>
               <div className="flex items-start justify-between gap-4 p-5">
                 <div><h2 className="font-bold text-[var(--ink)]">{item.name}</h2><p className="mt-2 text-sm leading-6 text-[var(--slate)]">{item.about}</p></div>
-                <ArrowUpRight className="mt-1 shrink-0 text-[var(--teal)] transition group-hover:-translate-y-1 group-hover:translate-x-1" size={18} />
+                <ArrowUpRight className="mt-1 shrink-0 text-[var(--amber)] transition group-hover:-translate-y-1 group-hover:translate-x-1" size={18} />
               </div>
             </a>
           ))}

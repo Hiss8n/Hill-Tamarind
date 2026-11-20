@@ -13,7 +13,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen overflow-hidden bg-[var(--mist)]">
+      <main className="min-h-screen overflow-hidden bg-[var(--deep-navy)]">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path='/about' element={<AboutPage />} />
